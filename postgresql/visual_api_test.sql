@@ -63,3 +63,5 @@ SELECT * FROM E01_PRODUCTO WHERE codigo_producto IN (
 SELECT DeleteProducto(100001);
 SELECT DeleteProducto(100002);
 
+SELECT * FROM E01_PRODUCTO;
+SELECT DeleteProducto(1); -- Tira error por las restricciones
