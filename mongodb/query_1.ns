@@ -1,0 +1,11 @@
+db.e01_cliente.find(
+  {
+    nombre: "Wanda",
+    apellido: "Baker"
+  },
+  {
+    _id: 0, // Excluir el campo _id de la salida si no lo deseas
+    nro_cliente: 1, // Incluir el número de cliente en la salida
+    telefonos: 1 // Incluir la información de teléfonos en la salida
+  }
+);
