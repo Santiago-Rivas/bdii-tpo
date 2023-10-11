@@ -1,0 +1,27 @@
+db.e01_factura.aggregate([
+  {
+    $group: {
+      _id: "$nro_cliente",
+      totalGasto: { $sum: "$total_con_iva" }
+    }
+  },
+  {
+    $lookup: {
+      from: "e01_cliente",
+      localField: "_id",
+      foreignField: "nro_cliente",
+      as: "cliente_info"
+    }
+  },
+  {
+    $unwind: "$cliente_info"
+  },
+  {
+    $project: {
+      _id: 0,
+      "Nombre del Cliente": "$cliente_info.nombre",
+      "Apellido del Cliente": "$cliente_info.apellido",
+      "Gasto Total (con IVA)": "$totalGasto"
+    }
+  }
+])

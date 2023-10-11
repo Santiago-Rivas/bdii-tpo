@@ -1,0 +1,25 @@
+db.e01_telefono.aggregate([
+  {
+    $lookup: {
+      from: "e01_cliente",
+      localField: "nro_cliente",
+      foreignField: "nro_cliente",
+      as: "cliente_info"
+    }
+  },
+  {
+    $unwind: "$cliente_info"
+  },
+  {
+    $project: {
+      _id: 0,
+      "Código de Área": "$codigo_area",
+      "Número de Teléfono": "$nro_telefono",
+      "Tipo de Teléfono": "$tipo",
+      "Nombre del Cliente": "$cliente_info.nombre",
+      "Apellido del Cliente": "$cliente_info.apellido",
+      "Dirección del Cliente": "$cliente_info.direccion",
+      "Activo del Cliente": "$cliente_info.activo"
+    }
+  }
+])

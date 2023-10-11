@@ -1,0 +1,15 @@
+db.createView("productos_not_facturados", "e01_producto", [
+  {
+    $lookup: {
+      from: "e01_factura",
+      localField: "codigo_producto",
+      foreignField: "detalle_facturas.codigo_producto",
+      as: "facturas"
+    }
+  },
+  {
+    $match: {
+      facturas: { $size: 0 }
+    }
+  }
+]);

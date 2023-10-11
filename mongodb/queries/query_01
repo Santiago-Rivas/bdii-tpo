@@ -1,0 +1,23 @@
+db.e01_cliente.aggregate([
+    {
+        $match: {
+            "nombre": "Wanda",
+            "apellido": "Baker"
+        }
+    },
+    {
+        $lookup: {
+            from: "e01_telefono",
+            localField: "nro_cliente",
+            foreignField: "nro_cliente",
+            as: "telefono_info"
+        }
+    },
+    {
+        $project: {
+            "nombre": 1,
+            "apellido": 1,
+            "telefono_info.nro_telefono": 1
+        }
+    }
+])

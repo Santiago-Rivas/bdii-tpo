@@ -1,0 +1,15 @@
+db.e01_cliente.aggregate([
+    {
+        $lookup: {
+            from: "e01_factura",
+            localField: "nro_cliente",
+            foreignField: "nro_cliente",
+            as: "facturas"
+        }
+    },
+    {
+        $match: {
+            "facturas": { $exists: true, $ne: [] }
+        }
+    }
+])

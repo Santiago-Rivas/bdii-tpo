@@ -1,0 +1,16 @@
+db.e01_factura.aggregate([
+    {
+        $lookup: {
+            from: "e01_cliente",
+            localField: "nro_cliente",
+            foreignField: "nro_cliente",
+            as: "cliente"
+        }
+    },
+    {
+        $match: {
+            "cliente.nombre": "Pandora",
+            "cliente.apellido": "Tate"
+        }
+    }
+])

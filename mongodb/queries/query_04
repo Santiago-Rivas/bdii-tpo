@@ -1,0 +1,16 @@
+db.e01_factura.aggregate([
+    {
+        $unwind: "$detalle_facturas"
+    },
+    {
+        $group: {
+            _id: "$detalle_facturas.codigo_producto",
+            count: { $sum: 1 }
+        }
+    },
+    {
+        $match: {
+            count: { $gte: 1 }
+        }
+    }
+])

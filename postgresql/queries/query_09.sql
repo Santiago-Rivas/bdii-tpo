@@ -1,0 +1,12 @@
+-- 9. Mostrar cada teléfono junto con los datos del cliente.
+SELECT
+    E01_TELEFONO.NRO_TELEFONO,
+    E01_CLIENTE.NRO_CLIENTE,
+    E01_CLIENTE.NOMBRE,
+    E01_CLIENTE.APELLIDO,
+    E01_CLIENTE.DIRECCION,
+    E01_CLIENTE.ACTIVO
+FROM E01_CLIENTE
+NATURAL JOIN E01_TELEFONO;
+-- No es lo mismo que el 5???
+

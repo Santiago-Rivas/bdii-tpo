@@ -1,0 +1,5 @@
+db.createView("facturas_sorted_by_fecha", "e01_factura", [
+  {
+    $sort: { fecha: 1 }
+  }
+])

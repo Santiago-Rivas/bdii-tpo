@@ -1,0 +1,29 @@
+db.e01_factura.aggregate([
+    {
+        $unwind: "$detalle_facturas"
+    },
+    {
+        $lookup: {
+            from: "e01_producto",
+            localField: "detalle_facturas.codigo_producto",
+            foreignField: "codigo_producto",
+            as: "productos"
+        }
+    },
+    {
+        $match: {
+            "productos.marca": "In Faucibus Inc."
+        }
+    },
+    {
+        $group: {
+            _id: "$_id",
+            nro_factura: { $first: "$nro_factura" },
+            fecha: { $first: "$fecha" },
+            total_sin_iva: { $first: "$total_sin_iva" },
+            iva: { $first: "$iva" },
+            total_con_iva: { $first: "$total_con_iva" },
+            nro_cliente: { $first: "$nro_cliente" }
+        }
+    }
+])

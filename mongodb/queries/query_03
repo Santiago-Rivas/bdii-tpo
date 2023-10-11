@@ -1,0 +1,5 @@
+db.e01_cliente.find({
+    "nro_cliente": {
+        $nin: db.e01_factura.distinct("nro_cliente")
+    }
+})
