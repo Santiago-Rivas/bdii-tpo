@@ -144,24 +144,24 @@ Cada ruta realiza operaciones específicas en la base de datos PostgreSQL y Mong
 
 ```sh
 curl -X POST -H "Content-Type: application/json" -d '{
-  "p_nro_cliente": 123,
+  "p_nro_cliente": 123000,
   "p_nombre": "Juan",
   "p_apellido": "Pérez",
   "p_direccion": "123 Calle Principal",
-  "p_activo": true
+  "p_activo": 1 
 }' http://localhost:3000/postgresql/clients/insert
 ```
 
-**Actualizar un cliente en MongoDB:**
+**Actualizar un cliente en PostrgeSQL:**
 
 ```sh
 curl -X POST -H "Content-Type: application/json" -d '{
-  "p_nro_cliente": 456,
+  "p_nro_cliente": 123000,
   "p_nombre": "María",
   "p_apellido": "González",
   "p_direccion": "456 Calle Secundaria",
-  "p_activo": false
-}' http://localhost:3000/mongodb/clients/update
+  "p_activo": 0
+}' http://localhost:3000/postrgesql/clients/update
 ```
 
 **Insertar un producto en MongoDB:**
