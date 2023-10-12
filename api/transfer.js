@@ -4,36 +4,27 @@ const path = require('path'); // For working with file paths
 const readline = require('readline');
 const { MongoClient } = require('mongodb');
 
-// PostgreSQL database connection details
+// Access the configuration variables
 const dbConfig = {
-    user: 'santiago',
-    password: '',
-    host: 'localhost',
-    port: 5432,
-    database: 'bdii_tpo',
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    database: process.env.DB_DATABASE,
 };
 
 // Create a PostgreSQL database connection
 const db = pgp(dbConfig);
 
 // MongoDB connection URL
-const mongoURL = 'mongodb://localhost:27017';
-const dbName = 'bdii_tpo'; // Change to your MongoDB database name
+const mongoURL = process.env.MONGO_URL;
+const dbName = process.env.DB_DATABASE;
 
 // List of tables you want to export data from
 const tablesToExport = ['e01_cliente',
-    //'e01_detalle_factura',
     'e01_factura',
     'e01_producto',
     'e01_telefono'];
-
-// // output dir
-// const outputDir = './tsv_output';
-// 
-// // Create the output directory if it doesn't exist
-// if (!fs.existsSync(outputDir)) {
-//     fs.mkdirSync(outputDir, { recursive: true }); // recursive: true will create parent directories if needed
-// }
 
 async function insertDataIntoMongoDB(dataArray, client, collectionName, columns) {
     const db = client.db(dbName);
@@ -133,6 +124,30 @@ async function fetchDetalleFacturasFromDatabase() {
     }
 }
 
+const createUniqueIndex = async (mongoClient, collectionName, fieldNames) => {
+    try {
+        // Connect to the MongoDB database
+        await mongoClient.connect();
+
+        // Select the MongoDB database and collection
+        const mongoDb = mongoClient.db(dbName);
+        const collection = mongoDb.collection(collectionName);
+
+        // Create a unique index on the specified fields (a compound unique index)
+        const index = {};
+        for (const fieldName of fieldNames) {
+            index[fieldName] = 1;
+        }
+        await collection.createIndex(index, { unique: true });
+
+        console.log(`Unique index created for ${collectionName}.${fieldNames.join(', ')}`);
+
+        // Close the MongoDB connection
+        mongoClient.close();
+    } catch (error) {
+        console.error(`Error creating unique index for ${collectionName}.${fieldNames.join(', ')}: ${error}`);
+    }
+};
 
 (async () => {
     let client;
@@ -170,78 +185,17 @@ async function fetchDetalleFacturasFromDatabase() {
         // Insert e01_detalle_factura data into e01_factura
         await insertDetalleFacturasIntoFacturas(detalleFacturaData, client);
 
+        // Create unique indexes for the specified fields
+        await createUniqueIndex(client, 'e01_cliente', ['nro_cliente']);
+        await createUniqueIndex(client, 'e01_factura', ['nro_factura']);
+        await createUniqueIndex(client, 'e01_producto',[ 'codigo_producto']);
+        await createUniqueIndex(client, 'e01_telefono',[ 'codigo_area',  'nro_telefono']);
+
     } catch (error) {
         console.error('Error:', error);
     } finally {
-        // Close the database connection
-
-        // const mongodb = client.db(dbName);
-        // await mongodb.collection('e01_detalle_factura').drop();
-
         pgp.end();
         client.close();
 
     }
 })();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
- *
-async function associateDetalleFacturasWithFacturas(client) {
-    const mongodb = client.db(dbName);
-
-    await mongodb.collection('e01_factura').aggregate([
-      {
-        $lookup: {
-          from: "e01_detalle_factura",
-          localField: "nro_factura",
-          foreignField: "nro_factura",
-          as: "detalle_facturas"
-        }
-      },
-      {
-        $addFields: {
-          detalle_facturas: {
-            $map: {
-              input: "$detalle_facturas",
-              as: "detalle",
-              in: {
-                codigo_producto: "$$detalle.codigo_producto",
-                nro_item: "$$detalle.nro_item",
-                cantidad: "$$detalle.cantidad"
-              }
-            }
-          }
-        }
-      }
-    ]).forEach(function(factura) {
-      mongodb.collection('e01_factura').updateOne(
-        { _id: factura._id },
-        {
-          $set: {
-            detalle_facturas: factura.detalle_facturas
-          }
-        }
-      );
-    });
-
-    console.log('Associated detalle_facturas with facturas.');
-}
- * */
