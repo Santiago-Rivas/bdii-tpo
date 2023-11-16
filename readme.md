@@ -58,7 +58,7 @@ Las consultas estan dentro de un subdirectorio llamado queries, mientras que las
 
 Antes de correr la api se deben descargar las dependencias:
 
-```
+```sh
 cd api
 npm install
 ```
@@ -71,6 +71,7 @@ Para prender la api correr el script the javascript dentro del directorio api ll
 cd api
 node api.js
 ```
+
 Luego cada route hace las siguientes operaciones:
 
 1. `/postgresql/init-db` (GET):
