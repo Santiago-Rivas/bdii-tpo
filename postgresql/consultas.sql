@@ -2,7 +2,6 @@
 
 -- Consultas SQL Requeridas
 
-
 -- 1. Obtener el teléfono y el número de cliente del cliente con nombre “Wanda” y apellido “Baker”.
 
 SELECT
@@ -42,7 +41,6 @@ SELECT
     E01_TELEFONO.NRO_TELEFONO
 FROM E01_CLIENTE
 NATURAL JOIN E01_TELEFONO;
--- No importa que se repitan todos los otros campos???
 
 
 -- 6. Devolver todos los clientes,
@@ -50,8 +48,6 @@ NATURAL JOIN E01_TELEFONO;
 -- (admitir nulos en valores de Clientes).
 
 SELECT nro_cliente, COUNT(nro_factura) FROM E01_CLIENTE c LEFT JOIN E01_FACTURA f ON e.nro_cliente = f.nro_cliente GROUP BY nro_cliente;
--- No entiendo que seria que admite nulos???
-
 
 -- 7. Listar todas las Facturas que hayan sido compradas por
 -- el cliente de nombre "Pandora" y apellido "Tate".
@@ -71,7 +67,6 @@ WHERE nro_factura IN (
     SELECT DISTINCT nro_factura FROM E01_DETALLE_FACTURA NATURAL JOIN e01_producto
     WHERE marca = 'In Faucibus Inc.'
 );
--- Esta bien el DISTINCT??? Porque podria haber un detalle factura con dos productos diferentes pero de la misma marca
 
 -- 9. Mostrar cada teléfono junto con los datos del cliente.
 SELECT
@@ -83,7 +78,6 @@ SELECT
     E01_CLIENTE.ACTIVO
 FROM E01_CLIENTE
 NATURAL JOIN E01_TELEFONO;
--- No es lo mismo que el 5???
 
 -- 10. Mostrar nombre y apellido de cada cliente junto con lo que gastó en total (con IVA incluido).
 SELECT nombre, apellido, SUM(total_con_iva) FROM E01_CLIENTE NATURAL JOIN E01_FACTURA GROUP BY nombre, apellido;
