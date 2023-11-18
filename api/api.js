@@ -64,7 +64,6 @@ app.get('/postgresql/drop-tables', async (req, res) => {
     }
 });
 
-// Define a route to run a custom script
 app.get('/psql-to-mongo', (req, res) => {
     try {
         // Replace 'node' with the path to your Node.js executable, if necessary

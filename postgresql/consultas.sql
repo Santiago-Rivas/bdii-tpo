@@ -49,7 +49,7 @@ NATURAL JOIN E01_TELEFONO;
 -- con la cantidad de facturas que tienen registradas
 -- (admitir nulos en valores de Clientes).
 
-SELECT nro_cliente, COUNT(nro_factura) FROM E01_CLIENTE NATURAL JOIN E01_FACTURA GROUP BY nro_cliente;
+SELECT nro_cliente, COUNT(nro_factura) FROM E01_CLIENTE c LEFT JOIN E01_FACTURA f ON e.nro_cliente = f.nro_cliente GROUP BY nro_cliente;
 -- No entiendo que seria que admite nulos???
 
 
