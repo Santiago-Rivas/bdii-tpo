@@ -98,9 +98,15 @@ NATURAL JOIN E01_TELEFONO;
 -- con la cantidad de facturas que tienen registradas
 -- (admitir nulos en valores de Clientes).
 
-SELECT nro_cliente, COUNT(nro_factura)
-FROM E01_CLIENTE NATURAL JOIN E01_FACTURA GROUP BY nro_cliente;
-
+SELECT
+    E01_FACTURA.nro_cliente,
+    COUNT(nro_factura)
+FROM
+    E01_CLIENTE RIGHT
+    JOIN E01_FACTURA
+    ON E01_CLIENTE.nro_cliente = E01_FACTURA.nro_cliente
+GROUP BY
+    E01_FACTURA.nro_cliente;
 
 -- 7. Listar todas las Facturas que hayan sido compradas por
 -- el cliente de nombre "Pandora" y apellido "Tate".
