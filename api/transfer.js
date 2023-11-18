@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path'); // For working with file paths
 const readline = require('readline');
 const { MongoClient } = require('mongodb');
+require('dotenv').config();
 
 // Access the configuration variables
 const dbConfig = {
@@ -18,6 +19,7 @@ const db = pgp(dbConfig);
 
 // MongoDB connection URL
 const mongoURL = process.env.MONGO_URL;
+console.log(mongoURL);
 const dbName = process.env.DB_DATABASE;
 
 // List of tables you want to export data from

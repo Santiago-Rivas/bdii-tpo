@@ -2,7 +2,6 @@
 
 -- Vistas
 
-
 -- 1. Se debe realizar una vista que devuelva las facturas ordenadas por fecha.
 
 DROP VIEW IF EXISTS facturas_por_fecha;
@@ -18,8 +17,7 @@ DROP VIEW IF EXISTS productos_no_facturados;
 
 CREATE VIEW productos_no_facturados AS
 SELECT * FROM E01_PRODUCTO WHERE codigo_producto NOT IN (
-    SELECT codigo_producto FROM E01_DETALLE_FACTURA NATURAL JOIN E01_FACTURA
+    SELECT codigo_producto FROM E01_DETALLE_FACTURA
 );
 
 SELECT * FROM productos_no_facturados;
--- Esta vista me esta dando vacia!

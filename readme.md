@@ -50,7 +50,7 @@ node transfer.js
 ```
 
 IMPORTANTE: El script hace un drop de las tablas ya existentes de la base de datos de mongo antes de insertar los datos de postgres!
-Si no quiere perder datos ya existentes not corra el script.
+Si no quiere perder datos ya existentes no corra el script.
 
 Las consultas estan dentro de un subdirectorio llamado queries, mientras que las vistas estan dentro de un subdirectorio llamado views
 
