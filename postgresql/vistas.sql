@@ -37,5 +37,3 @@ SELECT
     *
 FROM
     productos_no_facturados;
-
--- Esta vista me esta dando vacia!
