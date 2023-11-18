@@ -190,8 +190,8 @@ const createUniqueIndex = async (mongoClient, collectionName, fieldNames) => {
         // Create unique indexes for the specified fields
         await createUniqueIndex(client, 'e01_cliente', ['nro_cliente']);
         await createUniqueIndex(client, 'e01_factura', ['nro_factura']);
-        await createUniqueIndex(client, 'e01_producto',[ 'codigo_producto']);
-        await createUniqueIndex(client, 'e01_telefono',[ 'codigo_area',  'nro_telefono']);
+        await createUniqueIndex(client, 'e01_producto', ['codigo_producto']);
+        await createUniqueIndex(client, 'e01_telefono', ['codigo_area', 'nro_telefono']);
 
     } catch (error) {
         console.error('Error:', error);

@@ -119,7 +119,7 @@ VALUES($1, $2, $3, $4, $5)
 `;
 
         // Execute the PostgreSQL function with the provided parameters
-        const result = await db.none(insertQuery , [
+        const result = await db.none(insertQuery, [
             p_nro_cliente,
             p_nombre,
             p_apellido,
