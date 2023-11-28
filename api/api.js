@@ -127,7 +127,7 @@ VALUES($1, $2, $3, $4, $5)
             p_activo,
         ]);
 
-        res.status(201).json({ message: 'Cliente inserted successfully' });
+        res.status(201).json({ message: 'Client inserted successfully' });
     } catch (error) {
         console.log(res);
         console.error(error);
@@ -154,7 +154,7 @@ WHERE nro_cliente = $1
             p_activo,
         ]);
 
-        res.status(201).json({ message: 'Cliente updated successfully' });
+        res.status(201).json({ message: 'Client updated successfully' });
     } catch (error) {
         console.log(res);
         console.error(error);
@@ -178,7 +178,7 @@ WHERE nro_cliente = $1
             p_nro_cliente
         ]);
 
-        res.status(201).json({ message: 'Cliente deleted successfully' });
+        res.status(201).json({ message: 'Client deleted successfully' });
     } catch (error) {
         console.log(res);
         console.error(error);
@@ -210,7 +210,7 @@ VALUES($1, $2, $3, $4, $5, $6)
     } catch (error) {
         console.log(res);
         console.error(error);
-        res.status(500).json({ error: 'An error occurred while updating the product' });
+        res.status(500).json({ error: 'An error occurred while inserting the product' });
     }
 });
 
